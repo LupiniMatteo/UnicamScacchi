@@ -1,4 +1,5 @@
 ﻿using System;
+using Scacchi.Modello;
 
 namespace Scacchi
 {
@@ -6,8 +7,21 @@ namespace Scacchi
     {
         static void Main(string[] args)
         {
-            SimpleXUnitRunner.SimpleXUnit.RunTests();
+            //SimpleXUnitRunner.SimpleXUnit.RunTests();
+            IOrologio orologio = new Orologio(TimeSpan.FromSeconds(5));
+            orologio.TempoScaduto += notificaSconfitta {
+                Console.WriteLine{$"Il giocatore {colore} ha perso!"}
+            }
+            orologio.Accendi();
+            orologio.Avvia();
             Console.ReadKey();
+
+            
+        }
+
+        private static void notificaSconfitta(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
