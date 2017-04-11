@@ -9,9 +9,9 @@ namespace Scacchi
         {
             //SimpleXUnitRunner.SimpleXUnit.RunTests();
             IOrologio orologio = new Orologio(TimeSpan.FromSeconds(5));
-            orologio.TempoScaduto += notificaSconfitta {
-                Console.WriteLine{$"Il giocatore {colore} ha perso!"}
-            }
+            orologio.TempoScaduto += notificaSconfitta;
+                
+            
             orologio.Accendi();
             orologio.Avvia();
             Console.ReadKey();
@@ -19,9 +19,9 @@ namespace Scacchi
             
         }
 
-        private static void notificaSconfitta(object sender, EventArgs e)
+        private static void notificaSconfitta(object sender, Colore colore)
         {
-            throw new NotImplementedException();
+           Console.WriteLine ($"Il giocatore  {colore} ha perso la partita!");
         }
     }
 }
