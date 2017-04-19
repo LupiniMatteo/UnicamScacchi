@@ -1,10 +1,10 @@
 using System;
 
 namespace Scacchi.Modello.Pezzi {
-    public class Pedone : IPezzo
+    public class Torre : IPezzo
     {
         private readonly Colore colore;
-        public Pedone(Colore colore)
+        public Torre(Colore colore)
         {
             this.colore = colore;    
         }
@@ -21,19 +21,14 @@ namespace Scacchi.Modello.Pezzi {
             IScacchiera scacchiera = null)
         {
             var stessaColonna = colonnaPartenza == colonnaArrivo;
-            int distanzaTraLeTraverse;
-            if(Colore == Colore.Bianco){
-            distanzaTraLeTraverse = (int) traversaArrivo - (int) traversaPartenza;
-            }else{
-            distanzaTraLeTraverse =  (int) traversaPartenza - (int) traversaArrivo;
-            }
+            var stessaTraversa = traversaPartenza == traversaArrivo;
 
-            if (stessaColonna && distanzaTraLeTraverse == 1){
+            if((stessaTraversa && !stessaColonna) || (stessaColonna && !stessaTraversa)){
                 return true;
-            } else {
+            }else{
                 return false;
             }
-
+            
         }
     }
 }

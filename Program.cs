@@ -9,19 +9,22 @@ namespace Scacchi
         {
             //SimpleXUnitRunner.SimpleXUnit.RunTests();
             IOrologio orologio = new Orologio(TimeSpan.FromSeconds(5));
-            orologio.TempoScaduto += notificaSconfitta;
+            //orologio.TempoScaduto += notificaSconfitta;
                 
             
             orologio.Accendi();
             orologio.Avvia();
             Console.ReadKey();
 
-            
+            //La sottoscrizione all'evento TempoScaduto è stata spostata
+            //in un test in OrologioTest.cs (vedi in fondo al file, riga 180)
         }
 
-        private static void notificaSconfitta(object sender, Colore colore)
+        /*
+        private static void NotificaSconfitta(object sender, Colore colore)
         {
-           Console.WriteLine ($"Il giocatore  {colore} ha perso la partita!");
+            Console.WriteLine($"(Dal metodo): Il giocatore {colore} ha perso la partita, secondo l'orologio {sender}!");
         }
+        */
     }
 }
