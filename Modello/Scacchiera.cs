@@ -1,14 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Scacchi.Modello.Pezzi;
 
-namespace Scacchi.Modello {
+namespace Scacchi.Modello
+{
     public class Scacchiera : IScacchiera
     {
         private ICasa[] listaCase;
 
+<<<<<<< HEAD
        /* public Scacchiera() {
             listaCase= new ICasa[64];
+=======
+        /*public Scacchiera() {
+            listaCase = new ICasa[64];
+>>>>>>> 7f926d31019bdf562391cc6f27ad546a4b3eba8b
             int contatore=0;
             for (int i = 1; i < 9; i++)
             {
@@ -23,23 +30,74 @@ namespace Scacchi.Modello {
 
         public Scacchiera()
         {
-            listaCase = Enumerable
-            //butta fuori un elenco di numeri fino a 63
-            .Range(0, 64)
-            //della fila di interi la posso trasformare usando la select, decidiamo noi cosa buttare fuori con la select
-            .Select(i => (ICasa) new Casa((Colonna) (i%8+1), (Traversa) (i/8+1)))
-            //to array trasforma tutto in array
+            listaCase = Enumerable.Range(0, 64)
+            .Select(i => CreaCasa(i))
             .ToArray();
         }
-        public IEnumerable<ICasa> Case {
-            get{
+
+        internal ICasa CreaCasa(int i)
+        {
+            Colonna colonna = (Colonna)(i % 8 + 1);
+            Traversa traversa = (Traversa)(i / 8 + 1);
+            ICasa casa = new Casa(colonna, traversa);
+
+            if (traversa == Traversa.Seconda)
+            {
+                casa.PezzoPresente = new Pedone(Colore.Bianco);
+            }
+            else if (traversa == Traversa.Settima)
+            {
+                casa.PezzoPresente = new Pedone(Colore.Nero);
+            }
+            else if (traversa == Traversa.Prima || traversa == Traversa.Ottava)
+            {
+
+                Colore colore = traversa == Traversa.Prima ? Colore.Bianco : Colore.Nero;
+
+                switch (colonna)
+                {
+                    case Colonna.A:
+                        casa.PezzoPresente = new Torre(colore);
+                        break;
+                    case Colonna.B:
+                        casa.PezzoPresente = new Cavallo(colore);
+                        break;
+                    case Colonna.C:
+                        casa.PezzoPresente = new Alfiere(colore);
+                        break;
+                    case Colonna.D:
+                        casa.PezzoPresente = new Donna(colore);
+                        break;
+                    case Colonna.E:
+                        casa.PezzoPresente = new Re(colore);
+                        break;
+                    case Colonna.F:
+                        casa.PezzoPresente = new Alfiere(colore);
+                        break;
+                    case Colonna.G:
+                        casa.PezzoPresente = new Cavallo(colore);
+                        break;
+                    case Colonna.H:
+                        casa.PezzoPresente = new Torre(colore);
+                        break;
+                }
+            }
+            return casa;
+        }
+
+        public IEnumerable<ICasa> Case
+        {
+            get
+            {
                 return listaCase;
             }
         }
 
-        public ICasa this[Colonna colonna, Traversa traversa] {
-            get{
-                return listaCase[(int) colonna-1+(((int) traversa-1)*8)];
+        public ICasa this[Colonna colonna, Traversa traversa]
+        {
+            get
+            {
+                return listaCase[(int)colonna - 1 + (((int)traversa - 1) * 8)];
             }
         }
 
